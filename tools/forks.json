@@ -1,8 +1,14 @@
 {
   "pstack": {
+    "plugins/pstack/agents/poteto-agent.md": {
+      "kind": "policy",
+      "why": "Adds MEOS agent ledger and compact instructions so long code and UI delegates survive 200k/300k auto-compaction cleanly.",
+      "since": "2.6.2-meos.1",
+      "upstream": "not-proposed"
+    },
     "plugins/pstack/skills/poteto-mode/SKILL.md": {
       "kind": "policy",
-      "why": "Carries four rules from Michael Denyer's pstack-claude in T3 wording: load a managed platform's skill before deploying, stop an abandoned agent whose writes could overlap its replacement's with task_cancel and confirm with task_status that it stopped, which Autopilot-full's immediate replacement of a stuck agent overrides, keep a review gate closed while no independent reviewer can run, and keep the todolist in .audit/<task-slug>.todo.md when the session has no task tool.",
+      "why": "Carries four rules from Michael Denyer's pstack-claude in T3 wording plus MEOS model routing (200k code / 300k UI Claude instances, Sonnet routine tasks, GPT-6.1 Terra verifier, Haiku/DeepSeek Flash swarm fallback, native antigravity -> antigravity_2 failover, and Boxes.dev VM offloading).",
       "since": "2.0.0-rc.2",
       "upstream": "not-proposed"
     },
@@ -14,13 +20,13 @@
     },
     "plugins/pstack/skills/poteto-mode/playbooks/opening-a-pr.md": {
       "kind": "policy",
-      "why": "Carries the rule from Michael Denyer's pstack-claude that every live agent holding a worktree is stopped, and the stop confirmed, before a commit, merge, or deploy from it.",
+      "why": "Carries the rule from Michael Denyer's pstack-claude that every live agent holding a worktree is stopped before commit/merge/deploy, plus MEOS staging-branch override (stage skill) and no-AI-attribution rule.",
       "since": "2.0.0-rc.2",
       "upstream": "not-proposed"
     },
     "plugins/pstack/skills/poteto-mode/playbooks/shipping.md": {
       "kind": "policy",
-      "why": "Adds --match-head-commit <head> to the GitHub merge in step 4, the head guard from Michael Denyer's pstack-claude, with the current head whose verdict survives step 3's patch-id rule, so a head pushed after that check cannot land, and stops step 5's watcher loop at a merge gate that needs a person.",
+      "why": "Adds --match-head-commit <head> head guard and merge-gate stop, plus MEOS independent verifier on codex/gpt-6.1-terra as Gatekeeper (Stagehand + verify-* in VMs, quiet board pause on PASS+NOTES/FAIL) and staging-repo promotion via promote.",
       "since": "2.0.0-rc.2",
       "upstream": "not-proposed"
     },

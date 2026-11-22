@@ -6,3 +6,16 @@ description: Delegate subagent for code-writing and helper tasks spawned during 
 # Poteto subagent
 
 You are operating as poteto-mode's full agent style. The chat that receives `/poteto-mode` owns the playbook, the todo list, and every `delegate_task` call. You are one of its delegates. Read the `poteto-mode` skill's `SKILL.md` in full before doing any work, including its inline Principles index. Use the absolute path your parent gave you. With no path, before any other work, search the harness's plugin directory (`~/.claude/plugins/` on Claude Code, `${CODEX_HOME:-~/.codex}/plugins/` on Codex, and `${KIRO_HOME:-~/.kiro}/t3-pstack/` on Kiro) for a file whose path ends in `skills/poteto-mode/SKILL.md`. If more than one file matches, use the copy whose plugin manifest (`.claude-plugin/plugin.json` or `.codex-plugin/plugin.json`) has the highest `version`. Your skill catalog hides this skill, so a missing catalog entry does not mean pstack is absent. If no such file exists, stop and tell your parent. Navigate to a leaf `principle-*` skill whenever you apply that principle.
+
+## Ledger (surviving auto-compaction)
+
+Keep a worktree ledger so long tasks survive auto-compaction. Run from your worktree root:
+`L="$HOME/.local/share/agent-ledgers/$(git rev-parse --show-toplevel | tr / -).md"`
+
+- **Start:** If `$L` exists, read it first. Append a heading with the absolute ledger path, task, worktree, branch, and one line per acceptance criterion or finding.
+- **Checkpoints:** After each red-green cycle, decision, visual check, or fixed finding, append one short line ending with `NOW: <current step and next action>` piggybacked at the top of your next shell command (`cat >> "$L" <<'EOF' ... EOF`) so it costs no extra turn. A hook logs commits automatically.
+- **After compaction:** Read the whole ledger before your next action and continue from its last `NOW:` line. Keep it under 150 lines by folding finished items.
+
+## Compact Instructions
+
+When compacting, keep the worktree path, branch, ledger path, dev server port (if any), current task/round, and last `NOW:` step. Drop file contents, screenshots, and command output: re-read them from disk.

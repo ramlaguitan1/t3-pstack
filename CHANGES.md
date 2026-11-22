@@ -2,6 +2,14 @@
 
 This file is the release changelog, with one `## <version> - <title>` entry per release, newest first. The Cursor-to-T3 rewrite rules live in [`tools/substitutions.json`](tools/substitutions.json), and the [sync boundary](CONTRIBUTING.md#the-sync-boundary) in `CONTRIBUTING.md` defines how a change to upstream's skill content is declared.
 
+## 2.6.2-meos.1 - MEOS soft fork for Factory, VM verification, compaction, and staging
+
+Soft fork of `chhoumann/t3-pstack` 2.6.1 carrying MEOS Factory customizations:
+- Adds `skills/meos-factory/SKILL.md` for Factory Job leads reporting checkpoints and blockers to MEOS Hub.
+- Embeds worktree agent ledger and compact instructions in `agents/poteto-agent.md`.
+- Routes non-UI code delegates to `claude-code-200k` (200k compaction), UI delegates to `claude-ui-300k` (300k compaction + `ui-craft`), routine tasks to Sonnet 5.5, independent verification to `codex/gpt-6.1-terra` high (preferring `verify-*` with Stagehand in `vmpool` devboxes), swarm fallback from Claude Haiku 5.5 to OpenCode Go `deepseek-v4.1-flash`, and native T3 failover from `antigravity` to `antigravity_2`.
+- Adds staging-repo overrides (`stage` / `promote`) and quiet-board Gatekeeper rules in `opening-a-pr.md` and `shipping.md`.
+
 ## 2.6.1 - Babysit and Shipping wait on T3's PR watch
 
 Babysit's `drive` and Shipping's wait for the next PR's checks looped pstack's watcher inside the turn, in shell calls of up to 540 seconds. T3's `watch_pull_request` wakes a thread when a PR's checks, reviews, comments, or conflicts change, and agents already wait on it. A count of the maintainer's sessions found the watcher loop in 3 sessions and `watch_pull_request` in about 150. So the playbooks now wait one way on T3. The reason is simplicity, not time saved. The idea came from @yqecea in [#76](https://github.com/chhoumann/t3-pstack/pull/76), and [#88](https://github.com/chhoumann/t3-pstack/issues/88) tracked it.
