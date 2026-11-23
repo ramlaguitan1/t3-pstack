@@ -29,7 +29,7 @@ Load `poteto-mode` (`../poteto-mode/SKILL.md`) and follow its matching playbook 
    - UI-changing delegates (`UI: yes` or UI files touched): `claude-ui-300k/claude-opus-5-5 effort=high` (300k compaction + ledger + `ui-craft`).
    - Small, well-scoped routine tasks: `claude-code-200k/claude-sonnet-5-5 effort=high`.
    - When `Place: vm`, run heavy builds, test suites, and browser verification inside a `vmpool` devbox (`vm-pool` skill), then destroy the temporary devbox when finished.
-2. **Reviewing:** Run `meos job stage reviewing`. Run Pstack's cross-family review (`interrogate` panel: Claude Opus 5.5 high, GPT 6.2 Sol high, Gemini 4 Neon high; failing over `antigravity` to `antigravity_2` on limit). Report the review outcome:
+2. **Reviewing:** Run `meos job stage reviewing`. Run Pstack's cross-family review (`interrogate` panel: Claude Opus 5.5 high, GPT 6.2 Sol high, Gemini 4 Neon high; failing over across every enabled `antigravity*` Gemini 4 Neon account from `orchestrator_capabilities` on limit, then falling back to `claude-code-200k/claude-opus-5-5 effort=high` if all Gemini 4 Neon accounts are at limit). Report the review outcome:
    - `meos job review --result clean --rounds <n> --model "<models>"`
    - or `meos job review --result open --rounds <n> --finding "<finding>" --model "<models>"`
 3. **PR & Verifying:** Run `meos job stage verifying`.
