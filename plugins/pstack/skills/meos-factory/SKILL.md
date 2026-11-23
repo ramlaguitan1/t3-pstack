@@ -32,7 +32,7 @@ Load `poteto-mode` (`../poteto-mode/SKILL.md`) and follow its matching playbook 
 3. **PR & Verifying:** Run `meos job stage verifying`.
    - On `Route: staging`, follow the `stage` skill: open a Staging PR to `staging` and merge it into `staging`. Never open or merge directly to `main`.
    - On `Route: direct`, open the PR to the default branch per `playbooks/opening-a-pr.md`.
-   - Dispatch an independent non-author verifier on `codex/gpt-6.1-terra reasoningEffort=high`. Prefer the repo's `verify-*` skill (using Stagehand in a `vmpool` devbox when `Place: vm`). The verifier posts `PASS`, `PASS+NOTES`, or `FAIL` with real evidence on the PR.
+   - Dispatch an independent non-author verifier on `codex/gpt-6.1-terra reasoningEffort=high` (always `runtimeMode: "full-access"`). Resolve the repo's verification skill in order: `<repo>/.agents/skills/verify-*/SKILL.md`, `<repo>/.claude/skills/verify-*/SKILL.md`, then `~/.claude/skills/verify-<repo-name>/SKILL.md`. For browser/UI verification, use **Stagehand v3** (`/home/ram-laguitan/.local/share/meos-stagehand/stagehand-qa.cjs`, `deepseek-v4.1-flash`, never Playwright), offloading to a `vmpool` devbox when `Place: vm`. The verifier posts `PASS`, `PASS+NOTES`, or `FAIL` with real evidence on the PR.
 4. **Gatekeeper (quiet on the Hub board):** Pstack's independent verifier verdict IS the Gatekeeper.
    - Clean `PASS` with zero human-only (`Person:`) checks and no unverified production migrations: record `meos job gate confident --summary "<evidence>"`.
    - `PASS+NOTES`, `FAIL`, or any human-only step: record `meos job gate not-confident --reason "<why>"`. Do NOT trigger an Inbox alert for gatekept PRs; the Owner reviews them quietly on the Factory board.
