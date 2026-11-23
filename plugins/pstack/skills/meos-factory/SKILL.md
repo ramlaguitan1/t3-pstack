@@ -22,7 +22,7 @@ Read the repo's `AGENTS.md` / `CLAUDE.md` and `GLOSSARY.md` when present. Determ
 
 ## 2. Run Pstack (`poteto-mode`) with Hub checkpoints
 
-Load `poteto-mode` (`../poteto-mode/SKILL.md`) and follow its matching playbook (`Bug fix` for bug lane; `Feature` for feature lane). Every `delegate_task` call MUST pass `runtimeMode: "full-access"`. Report concise checkpoints to MEOS Hub using `meos job`:
+Load `poteto-mode` (`../poteto-mode/SKILL.md`) and follow its matching playbook (`Bug fix` for bug lane; `Feature` for feature lane). Every delegated subagent, reviewer, and verifier MUST be dispatched through `delegate_task` (`mode: "async"`, `runtimeMode: "full-access"`) so it nests cleanly under this thread — **NEVER call `create_threads` or `t3_thread_launch`** (those create top-level sidebar threads). On Antigravity/Gemini leads where `delegate_task` is absent from the direct MCP tools and `T3_ACP_MCP_NODE` is set, ALWAYS invoke `delegate_task` through the ACP bridge: `ELECTRON_RUN_AS_NODE=1 "$T3_ACP_MCP_NODE" ${T3_ACP_MCP_ENTRYPOINT:+"$T3_ACP_MCP_ENTRYPOINT"} acp-mcp-call delegate_task '<json>'`. Report concise checkpoints to MEOS Hub using `meos job`:
 
 1. **Implementing:** Run `meos job stage implementing` before delegating implementation.
    - Non-UI code delegates: `claude-code-200k/claude-opus-5-5 effort=high` (200k compaction + ledger).
