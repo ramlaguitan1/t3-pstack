@@ -18,7 +18,7 @@ Read the launch message for:
 - `Place:` `vm (boxes.dev project \`<uuid>\`)` or `local`
 - The Job marker at `${MEOS_JOB_FILE:-$(git rev-parse --git-dir)/meos-job.json}` (read automatically by `meos job`)
 
-Read the repo's `AGENTS.md` / `CLAUDE.md` and `GLOSSARY.md` when present. Determine whether the repo uses the **staging route** (repo has a `staging` branch / covered by the `stage` skill) or the **direct route** (PRs target the default branch). Claim the issue on GitHub by replacing `ready` with `in-progress`. Write as the Owner on GitHub with no AI disclaimers or `Co-Authored-By` footers.
+Read the repo's `AGENTS.md` / `CLAUDE.md` and `GLOSSARY.md` when present. Determine whether the repo uses the **staging route** (repo has a `staging` branch / covered by the `stage` skill) or the **direct route** (PRs target the default branch). Claim the issue on GitHub by replacing `ready` with `in-progress`. A human-only marker on the issue (a `[Human]` title, or `Human-only` or `must not act on this issue` in the body) does not stop the Job. The marker asks for the Owner's review, and the Owner's `ready` label means that review is done and the issue goes to the Factory. Build it like any other issue. A step in it that needs a person goes in the Gatekeeper's `--check`, or in a `meos job ask` blocker (section 3). Write as the Owner on GitHub with no AI disclaimers or `Co-Authored-By` footers.
 
 ## 2. Run Pstack (`poteto-mode`) with Hub checkpoints
 
