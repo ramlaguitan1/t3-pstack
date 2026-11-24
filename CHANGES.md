@@ -2,6 +2,10 @@
 
 This file is the release changelog, with one `## <version> - <title>` entry per release, newest first. The Cursor-to-T3 rewrite rules live in [`tools/substitutions.json`](tools/substitutions.json), and the [sync boundary](CONTRIBUTING.md#the-sync-boundary) in `CONTRIBUTING.md` defines how a change to upstream's skill content is declared.
 
+## 2.6.2-meos.6 - Batched CI by default for multi-PR programs
+
+- `autopilot-full.md`: in a program of more than one PR, each PR merges into the integration branch on its verdict and its owner's checks for the touched paths. One full CI run tests the integration branch after each wave, through a draft PR to trunk that never merges. A single-PR program, or a PR that merges straight to trunk, still needs green CI on its own head.
+
 ## 2.6.2-meos.1 - MEOS soft fork for Factory, VM verification, compaction, and staging
 
 Soft fork of `chhoumann/t3-pstack` 2.6.1 carrying MEOS Factory customizations:
