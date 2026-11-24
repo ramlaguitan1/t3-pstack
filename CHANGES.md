@@ -2,6 +2,10 @@
 
 This file is the release changelog, with one `## <version> - <title>` entry per release, newest first. The Cursor-to-T3 rewrite rules live in [`tools/substitutions.json`](tools/substitutions.json), and the [sync boundary](CONTRIBUTING.md#the-sync-boundary) in `CONTRIBUTING.md` defines how a change to upstream's skill content is declared.
 
+## 2.6.2-meos.10 - A human-only marker does not stop a Factory Job
+
+- `meos-factory`: a human-only marker on the issue (a `[Human]` title, or `Human-only` or `must not act on this issue` in the body) asks for the Owner's review. The Owner's `ready` label means that review is done, so the Job builds the issue. A step that needs a person goes in the Gatekeeper's `--check` or in a `meos job ask` blocker.
+
 ## 2.6.2-meos.9 - The Factory lead always runs Opus
 
 - `meos-factory`: the Job's lead thread always runs on `claude-code-200k/claude-opus-5-5 effort=high`. The usage-limit fallback changes only the children's models. Review seats keep the order: the other family, then Fable 5.2, then Opus 5.5.
