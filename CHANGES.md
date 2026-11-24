@@ -2,6 +2,13 @@
 
 This file is the release changelog, with one `## <version> - <title>` entry per release, newest first. The Cursor-to-T3 rewrite rules live in [`tools/substitutions.json`](tools/substitutions.json), and the [sync boundary](CONTRIBUTING.md#the-sync-boundary) in `CONTRIBUTING.md` defines how a change to upstream's skill content is declared.
 
+## 2.6.2-meos.8 - Claude fallback on a usage limit
+
+- `poteto-mode` Subagents: new rule **Usage-limit fallback to Claude**. A child that fails on a Codex or Antigravity usage limit continues on Claude at once, never at the reset. Review seats go to the other family, then Fable 5.2, then Opus 5.5. The Verifier goes to Sonnet 5.5 high. Other roles go to Opus 5.5 high.
+- The lead switches the child's model in place (`t3_thread_configure`, then `t3_thread_send`) when the child did work, or resends the brief to a fresh child when it did none.
+- The lead retires the limited run (`task_cancel`, `t3_queue` cancel, `t3_thread_organize` archive, scheduled retries deleted), so T3's auto-continue on limit reset cannot wake it.
+- `meos-factory`: the review and Verifier steps follow that rule. The Owner allows the Verifier switch, and a Hub reviewer override is only a preference.
+
 ## 2.6.2-meos.6 - Batched CI by default for multi-PR programs
 
 - `autopilot-full.md`: in a program of more than one PR, each PR merges into the integration branch on its verdict and its owner's checks for the touched paths. One full CI run tests the integration branch after each wave, through a draft PR to trunk that never merges. A single-PR program, or a PR that merges straight to trunk, still needs green CI on its own head.
