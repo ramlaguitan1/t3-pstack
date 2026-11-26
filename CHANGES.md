@@ -2,6 +2,10 @@
 
 This file is the release changelog, with one `## <version> - <title>` entry per release, newest first. The Cursor-to-T3 rewrite rules live in [`tools/substitutions.json`](tools/substitutions.json), and the [sync boundary](CONTRIBUTING.md#the-sync-boundary) in `CONTRIBUTING.md` defines how a change to upstream's skill content is declared.
 
+## 2.6.2-meos.10 - The Owner answers in the Job's thread
+
+- `meos-factory` Blockers: the Owner answers a `meos job ask` question in the Hub Inbox or in the Job's own thread. For an answer in the thread, the lead runs `meos job answered --text "<his whole words>"` first, because the Hub refuses its other `meos job` commands with `answer-first` until then (massive-edge-os PR #342). The alert no longer says "one-way" or Telegram.
+
 ## 2.6.2-meos.9 - The Factory lead always runs Opus
 
 - `meos-factory`: the Job's lead thread always runs on `claude-code-200k/claude-opus-5-5 effort=high`. The usage-limit fallback changes only the children's models. Review seats keep the order: the other family, then Fable 5.2, then Opus 5.5.

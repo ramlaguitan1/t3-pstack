@@ -54,7 +54,8 @@ Load `poteto-mode` (`../poteto-mode/SKILL.md`) and follow its matching playbook 
 
 If you hit a genuine blocker that needs the Owner (ambiguous requirement, missing credential/access, or unrecoverable failure after retries):
 - Ask via `meos job ask "<concise blocker summary and what you need>" --option "<A>" --option "<B>" --recommended 1` (never use `AskUserQuestion` in an unattended Factory thread), OR on a hard dead-end run `meos job stage failed --note "<reason>"`.
-- This posts a one-way blocker alert in Hub Inbox and Telegram with a direct `Open in T3` link. Stop and end the turn.
+- This posts a blocker alert in the Hub Inbox with a direct `Open in T3` link. Stop and end the turn.
+- The Owner answers in the Inbox or in this thread. When his answer is a message in this thread, run `meos job answered --text "<his whole words>"` before anything else. The Hub refuses every other `meos job` command with `answer-first` until you do. If the command exits 3, no message from him is after your question: stop and end the turn again.
 
 ## 4. No change needed
 
